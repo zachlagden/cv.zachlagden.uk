@@ -20,7 +20,7 @@ gulp.task("build-css", (done) => {
 // Task to minify HTML
 gulp.task("minify-html", () => {
   return gulp
-    .src("index.html") // No 'src/' prefix needed since gulpfile.js is in /src
+    .src("*.html") // No 'src/' prefix needed since gulpfile.js is in /src
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest("../")); // Output to root directory
 });

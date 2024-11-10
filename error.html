@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/tailwind.css" />
+    <title>Server Error</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+    <main class="flex-grow flex items-center justify-center p-6">
+      <div class="text-center space-y-6 max-w-2xl mx-auto">
+        <div class="flex justify-center">
+          <div class="relative">
+            <div id="errorCode" class="text-9xl font-bold text-amber-600">
+              500
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h1 id="errorTitle" class="text-3xl font-bold text-gray-800">
+            Server Error
+          </h1>
+          <p id="errorMessage" class="text-gray-600">
+            Sorry, something went wrong on our end. We're working to fix it.
+          </p>
+          <p id="errorDetail" class="text-sm text-gray-500"></p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onclick="window.location.reload()"
+            class="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
+          >
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            Try Again
+          </button>
+          <a
+            href="/"
+            class="inline-flex items-center justify-center gap-2 border border-amber-600 text-amber-600 px-6 py-3 rounded-lg hover:bg-amber-50 transition-colors"
+          >
+            <i data-lucide="home" class="w-5 h-5"></i>
+            Go Home
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.5.1/SmoothScroll.min.js"
+      integrity="sha512-BkMKSo7sGBeDmtIyZoyInJbrI/XqQ1ez6SZotOL0e+iT6tzOjBmtMpWWPUVbcdqLbaukREItSDV2aohX+9gBlw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+
+      // Get the error code from the URL, default to 500
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorCode = urlParams.get("code") || "500";
+
+      // Error message mapping
+      const errorMessages = {
+        500: {
+          title: "Server Error",
+          message:
+            "Sorry, something went wrong on our end. We're working to fix it.",
+          detail: "Internal Server Error",
+        },
+        502: {
+          title: "Bad Gateway",
+          message: "We received an invalid response from the upstream server.",
+          detail: "Bad Gateway Error",
+        },
+        503: {
+          title: "Service Unavailable",
+          message:
+            "Our service is temporarily unavailable. Please try again later.",
+          detail: "Service Unavailable Error",
+        },
+        504: {
+          title: "Gateway Timeout",
+          message: "The upstream server took too long to respond.",
+          detail: "Gateway Timeout Error",
+        },
+      };
+
+      // Update the page content based on the error code
+      const errorInfo = errorMessages[errorCode] || errorMessages["500"];
+      document.getElementById("errorCode").textContent = errorCode;
+      document.getElementById("errorTitle").textContent = errorInfo.title;
+      document.getElementById("errorMessage").textContent = errorInfo.message;
+      document.getElementById("errorDetail").textContent = errorInfo.detail;
+    </script>
+  </body>
+</html>
