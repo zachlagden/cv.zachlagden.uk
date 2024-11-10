@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-uglify": "^3.0.2",
+    "html-minifier-terser": "^7.2.0",
+    "tailwindcss": "^3.4.14",
+    "uglify-js": "^3.19.3"
+  },
+  "scripts": {
+    "build-css": "pnpx tailwindcss -i ./static/input.css -o ./static/tailwind.css --minify",
+    "watch-css": "pnpx tailwindcss -i ./static/input.css -o ./static/tailwind.css --watch"
+  }
+}
